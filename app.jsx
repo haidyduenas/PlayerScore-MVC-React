@@ -24,8 +24,10 @@ class Model {
          this.inform();
       }
 
-      removeTodo(players) {
-         this.players.score--;
+      removePoints(players,index) {
+            console.log(this.players[0].score);
+            this.players[index].score--;
+            this.inform();
       }
    
 
@@ -66,11 +68,11 @@ class Model {
       return (
         <div>
           {
-            model.players.map((item) => {
+            model.players.map((item,index) => {
               return <div className='player' key={item.name}>
                 <div className='player-name'>{item.name}</div>
                 <div className='player-score counter'>
-                  <button className='counter-action decrement'>-</button>
+                  <button className='counter-action decrement'onClick={() => model.removePoints(players,index)}>-</button>
                   <span className='counter-score'>{item.score}</span>
                   <button className='counter-action increment'>+</button>
                 </div>
