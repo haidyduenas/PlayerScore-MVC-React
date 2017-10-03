@@ -36,12 +36,12 @@ class Model {
 
    pointsSet(players){
       console.log(this.players[1].score);
-      return this.players.map(players => this.players[1].score).reduce((playerA, playerB) => playerA + playerB);
+      return this.players.map((players,i) => this.players[i].score).reduce((playerA, playerB) => playerA + playerB);
       this.inform();
       }
 }
 
-    const Header = ({players}) => {
+    const Header = ({players,i}) => {
       return (
         <div>
           <header className='header'>
