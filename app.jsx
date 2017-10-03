@@ -7,18 +7,15 @@ class Model {
          this.players = [{name: "Jim Hoskins",score: 31,id: 1,},{name: "Andree Hoskins",score: 35,id: 2,},{name: "Alena Hoskins",score: 42,id: 3,}];
          this.inputValue = null;
          this.render = undefined;
-         this.addPoints = 0;
-         this.removePoints = 0;
       }
    
       subscribe(render) {
          this.render = render;
       }
       inform() {
-         console.log(this.todos.map(e => e.text));
          this.render();
       }
-      addTodo(name) {
+      addPlayers(name) {
          this.players.push({
             id: Utils.uuid(),
             name: name,
@@ -26,19 +23,17 @@ class Model {
          });
          this.inform();
       }
-      updateTodo(index, todo) {
-         this.todos[index] = todo;
-         this.inform();
-      }
-      removeTodo(todo) {
-         this.todos = this.todos.filter(item => item !== todo);
-         this.inform();
+
+      removeTodo(players) {
+         this.players.score--;
       }
    
 
    pointsSet(players){
-      return players.map(player => player.score).reduce((playerA, playerB) => playerA + playerB);
-    }
+      console.log(this.players[1].score);
+      return this.players.map(players => this.players[1].score).reduce((playerA, playerB) => playerA + playerB);
+      this.inform();
+      }
 }
 
     const Header = ({players}) => {
@@ -53,7 +48,7 @@ class Model {
               </tr>
               <tr>
                 <td>TOTAL POINTS:</td>
-                <td></td>
+                <td>{model.pointsSet()}</td>
               </tr>
               </tbody>
             </table>
@@ -88,8 +83,14 @@ class Model {
     const PlayerForm = () => {
       return (
         <div className='add-player-form'>
-          <form>
-            <input type="text" placeholder='ENTER A NAME' />
+          <form
+          onSubmit={e => {
+               e.preventDefault();
+               model.addPlayers(model.inputValue);
+            }}
+          >
+            <input type="text" placeholder='ENTER A NAME'
+            onChange={e => (model.inputValue = e.target.value)}/>
             <input type="submit" value='add player' />
           </form>
         </div>
